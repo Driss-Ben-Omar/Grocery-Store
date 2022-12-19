@@ -1,1 +1,460 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1
+-- Généré le : lun. 19 déc. 2022 à 23:00
+-- Version du serveur : 10.4.25-MariaDB
+-- Version de PHP : 7.4.30
 
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `db_mvc_cat`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `admin`
+--
+
+CREATE TABLE `admin` (
+  `nomComplet` varchar(40) COLLATE utf8_bin NOT NULL,
+  `email` varchar(80) COLLATE utf8_bin NOT NULL,
+  `passWord` varchar(60) COLLATE utf8_bin NOT NULL,
+  `numTele` varchar(40) COLLATE utf8_bin NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `admin`
+--
+
+INSERT INTO `admin` (`nomComplet`, `email`, `passWord`, `numTele`) VALUES
+('reda', 'admin@gmail.com', 'admin123', '+212331244');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `clients`
+--
+
+CREATE TABLE `clients` (
+  `id` int(11) NOT NULL,
+  `nomComplet` varchar(70) NOT NULL,
+  `email` varchar(70) NOT NULL,
+  `password` varchar(70) NOT NULL,
+  `Numerotelephone` varchar(20) NOT NULL,
+  `datenaissance` date DEFAULT NULL,
+  `adresse` varchar(70) DEFAULT NULL,
+  `salt` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `clients`
+--
+
+INSERT INTO `clients` (`id`, `nomComplet`, `email`, `password`, `Numerotelephone`, `datenaissance`, `adresse`, `salt`) VALUES
+(3, 'mouad', 'mouadbenthami@gmail.com', 'Oi8bhJRzlC1QWCMOrOXEA+dziSkN4ecWWz5zSv0hS6c=', '+212 060 132 432', '2001-05-13', 'teouane  city', 'b0XoQvkqg6uyAq5ZcssxgbBOoZoT3c'),
+(12, 'hatim benomar', 'hatim999@gmail.com', 'rGKQDqH9iIE1UjYcnymmYssfolr47dGVt7DoAVrokM4=', '0633316570', '2005-02-03', 'MARTIL', '3yG5TgQqhuLaRcmVQGakiDTkdOTxzd'),
+(10, 'Driss BENOMAR', 'benomard999@gmail.com', 'GhNfpIvNLx5jC7HsQx8PeNqw/tG2I7QEEbZP8Pxg+cA=', '0633316570', '2001-02-03', 'MARTIL', '3uf4O3gKT2DBz4TezaUrqemSdCz2L3'),
+(16, 'khalid', 'khail@gmail.com', '6T5/yB3RshGjuUhdHj1/KHwNWV52cqH1ncOMmLuEM50=', '771122336699', '2000-11-11', 'av kholdon tetouan maroc', 'vRi5aJa6cXhCYqJNPFw9CuQD6g3YOS'),
+(17, 'Driss BENOMAR', 'bennnnn@gmail.com', 'wiMXpn9NhBLqx1ugnm8rRN/u/lViZawJoyQz+2YR9rs=', '0633316570', '2001-02-03', 'MARTIL', 'FJEUibsz5zhtpCj1Zj6bcKWO8qI8FU');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commande`
+--
+
+CREATE TABLE `commande` (
+  `id` int(11) NOT NULL,
+  `idclient` int(11) NOT NULL,
+  `datelivraison` date NOT NULL,
+  `datecommande` date NOT NULL,
+  `prixtotale` double NOT NULL,
+  `idTache` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `commande`
+--
+
+INSERT INTO `commande` (`id`, `idclient`, `datelivraison`, `datecommande`, `prixtotale`, `idTache`) VALUES
+(19, 3, '2022-06-18', '2022-06-18', 8, 58),
+(18, 3, '2022-06-17', '2022-06-17', 200, 58),
+(36, 17, '2022-07-02', '2022-07-02', 47, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commandelivrer`
+--
+
+CREATE TABLE `commandelivrer` (
+  `id` int(11) NOT NULL,
+  `idClient` int(11) NOT NULL,
+  `dateLivraison` date NOT NULL,
+  `dateCommande` date NOT NULL,
+  `prixTotale` double NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `commandelivrer`
+--
+
+INSERT INTO `commandelivrer` (`id`, `idClient`, `dateLivraison`, `dateCommande`, `prixTotale`) VALUES
+(1, 3, '2022-03-20', '2022-03-30', 232),
+(5, 13, '2022-03-20', '2022-03-30', 111),
+(6, 16, '2022-03-20', '2022-03-30', 231),
+(9, 16, '2022-03-12', '2022-04-08', 123.76),
+(3, 3, '2022-06-17', '2022-06-15', 123),
+(4, 13, '2022-06-16', '2022-06-14', 264),
+(14, 16, '2022-06-16', '2022-06-16', 140),
+(17, 3, '2022-06-17', '2022-06-17', 320),
+(21, 17, '2022-07-01', '2022-07-01', 34),
+(20, 17, '2022-07-01', '2022-07-01', 33),
+(25, 17, '2022-07-01', '2022-07-01', 56),
+(22, 17, '2022-07-01', '2022-07-01', 38),
+(23, 17, '2022-07-01', '2022-07-01', 20),
+(24, 17, '2022-07-01', '2022-07-01', 26),
+(30, 17, '2022-07-01', '2022-07-01', 22),
+(26, 17, '2022-07-01', '2022-07-01', 30);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commendeproduit`
+--
+
+CREATE TABLE `commendeproduit` (
+  `idproduit` int(11) NOT NULL,
+  `idcommende` int(11) NOT NULL,
+  `quantiteproduit` double NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `commendeproduit`
+--
+
+INSERT INTO `commendeproduit` (`idproduit`, `idcommende`, `quantiteproduit`) VALUES
+(1, 3, 1.75),
+(2, 9, 13),
+(3, 9, 11),
+(10, 9, 13),
+(12, 9, 11),
+(11, 7, 4),
+(2, 7, 6),
+(19, 7, 4),
+(21, 7, 6),
+(19, 13, 1),
+(20, 13, 3),
+(23, 14, 2),
+(21, 14, 1),
+(21, 15, 2),
+(23, 15, 1),
+(19, 16, 2),
+(21, 16, 1),
+(23, 16, 2),
+(21, 17, 1),
+(20, 17, 1),
+(20, 18, 1),
+(19, 18, 1),
+(26, 19, 2),
+(25, 20, 1),
+(28, 20, 2),
+(25, 21, 2),
+(27, 21, 1),
+(29, 21, 1),
+(26, 22, 3),
+(24, 22, 1),
+(25, 22, 1),
+(26, 22, 3),
+(29, 23, 1),
+(26, 23, 1),
+(29, 23, 1),
+(29, 24, 1),
+(25, 24, 1),
+(26, 24, 1),
+(24, 25, 1),
+(25, 25, 1),
+(31, 25, 1),
+(24, 25, 1),
+(34, 25, 2),
+(27, 26, 1),
+(26, 26, 1),
+(29, 26, 1),
+(37, 27, 1),
+(31, 27, 1),
+(26, 27, 1),
+(33, 27, 1),
+(24, 27, 1),
+(41, 27, 1),
+(28, 28, 1),
+(27, 28, 1),
+(25, 28, 1),
+(30, 28, 1),
+(26, 28, 1),
+(25, 28, 1),
+(30, 28, 1),
+(26, 29, 1),
+(30, 29, 1),
+(33, 30, 1),
+(26, 30, 1),
+(34, 31, 1),
+(24, 31, 1),
+(30, 32, 1),
+(24, 32, 1),
+(26, 33, 1),
+(25, 33, 1),
+(27, 34, 1),
+(25, 34, 1),
+(27, 34, 1),
+(26, 35, 1),
+(28, 36, 2),
+(27, 36, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `demande_livreurs`
+--
+
+CREATE TABLE `demande_livreurs` (
+  `cin` varchar(20) NOT NULL,
+  `nomComplet` varchar(30) NOT NULL,
+  `DATENAISSANCE` date NOT NULL,
+  `ADRESSE` varchar(50) NOT NULL,
+  `NUMEROTELEPHONE` varchar(20) NOT NULL,
+  `EMAIL` varchar(40) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `livreurs`
+--
+
+CREATE TABLE `livreurs` (
+  `cin` varchar(20) NOT NULL,
+  `NOMCOMPLET` varchar(30) NOT NULL,
+  `DATENAISSANCE` date NOT NULL,
+  `ADRESSE` varchar(50) NOT NULL,
+  `NUMEROTELEPHONE` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `livreurs`
+--
+
+INSERT INTO `livreurs` (`cin`, `NOMCOMPLET`, `DATENAISSANCE`, `ADRESSE`, `NUMEROTELEPHONE`) VALUES
+('p902', 'ali tantan', '1999-11-12', 'av marrakech rue 3 tetouan casa', '0612345678'),
+('ABCDE1234', 'rida lhamidi', '2001-02-03', 'av 9 avril MARTIL Maroc', '0632116570'),
+('ABCDE', 'mohamed lkhaldi', '2000-11-11', 'av casablanca rue 3 tetouan maroc', '07781532215'),
+('p234', 'mohamed ali', '2001-06-28', 'tetouane', '0633316570');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `panier`
+--
+
+CREATE TABLE `panier` (
+  `idClient` int(11) NOT NULL,
+  `idProduit` int(11) NOT NULL,
+  `quantiteProduit` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `produits`
+--
+
+CREATE TABLE `produits` (
+  `ID_PRODUIT` int(11) NOT NULL,
+  `NOM_PRODUIT` varchar(25) NOT NULL,
+  `PRIX` double NOT NULL,
+  `Quantite` double NOT NULL,
+  `prixAchat` double NOT NULL,
+  `remis` double NOT NULL,
+  `profit` double NOT NULL,
+  `QuantiteVendue` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `produits`
+--
+
+INSERT INTO `produits` (`ID_PRODUIT`, `NOM_PRODUIT`, `PRIX`, `Quantite`, `prixAchat`, `remis`, `profit`, `QuantiteVendue`) VALUES
+(26, 'TOMATE', 8, 15, 6, 0, 2, 3),
+(27, 'OIGNON', 10, 7, 7, 0, 3, 1),
+(28, 'Pomme', 14, 17, 11, 1, 2, 5),
+(29, 'Fraise', 12, 11, 7, 0, 5, 3),
+(30, 'KIWI', 25, 7, 21, 0, 4, 1),
+(31, 'Mandarines', 10, 11, 7, 0, 3, 2),
+(32, 'ANANAS', 30, 12, 24, 0, 6, 2),
+(33, 'BANANE', 14, 7, 9, 0, 5, 2),
+(34, 'AIL', 17, 22, 15, 2, 0, 0),
+(35, 'CHILI', 7, 11, 3.5, 0, 3.5, 3),
+(36, 'JUS DE FRUIT', 23, 6, 17, 2, 4, 0),
+(37, 'BROCOLI', 14, 6, 11, 0, 3, 0),
+(38, 'CHOU ROUGE', 17, 9, 14, 0, 3, 0),
+(39, 'HARICOTS VERTS', 9, 13, 4, 0, 5, 2),
+(40, 'POIVRON', 12, 11, 8, 1, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tache`
+--
+
+CREATE TABLE `tache` (
+  `id` int(11) NOT NULL,
+  `cin` varchar(20) DEFAULT NULL,
+  `matricule` varchar(20) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `tache`
+--
+
+INSERT INTO `tache` (`id`, `cin`, `matricule`) VALUES
+(54, 'ABCDE1234', 'QSA11'),
+(57, 'p234', '441959'),
+(56, 'p902', '121322'),
+(58, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `voitures`
+--
+
+CREATE TABLE `voitures` (
+  `matricule` varchar(20) NOT NULL,
+  `marque` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `voitures`
+--
+
+INSERT INTO `voitures` (`matricule`, `marque`) VALUES
+('QSA11', 'fiat'),
+('441959', 'renult'),
+('77722321', 'toyota '),
+('AWMM', 'dacia logan'),
+('121322', 'Honda');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idclient` (`idclient`),
+  ADD KEY `idTache` (`idTache`);
+
+--
+-- Index pour la table `commandelivrer`
+--
+ALTER TABLE `commandelivrer`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idClient` (`idClient`);
+
+--
+-- Index pour la table `commendeproduit`
+--
+ALTER TABLE `commendeproduit`
+  ADD KEY `idcommende` (`idcommende`),
+  ADD KEY `idproduit` (`idproduit`);
+
+--
+-- Index pour la table `demande_livreurs`
+--
+ALTER TABLE `demande_livreurs`
+  ADD PRIMARY KEY (`cin`);
+
+--
+-- Index pour la table `livreurs`
+--
+ALTER TABLE `livreurs`
+  ADD PRIMARY KEY (`cin`);
+
+--
+-- Index pour la table `panier`
+--
+ALTER TABLE `panier`
+  ADD KEY `idClient` (`idClient`),
+  ADD KEY `idProduit` (`idProduit`);
+
+--
+-- Index pour la table `produits`
+--
+ALTER TABLE `produits`
+  ADD PRIMARY KEY (`ID_PRODUIT`);
+
+--
+-- Index pour la table `tache`
+--
+ALTER TABLE `tache`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cin` (`cin`),
+  ADD KEY `matricule` (`matricule`);
+
+--
+-- Index pour la table `voitures`
+--
+ALTER TABLE `voitures`
+  ADD PRIMARY KEY (`matricule`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT pour la table `commande`
+--
+ALTER TABLE `commande`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT pour la table `produits`
+--
+ALTER TABLE `produits`
+  MODIFY `ID_PRODUIT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT pour la table `tache`
+--
+ALTER TABLE `tache`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
